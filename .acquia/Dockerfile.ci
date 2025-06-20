@@ -1,0 +1,19 @@
+ARG REPO_LOCATION
+ARG BASE_IMAGE=devops-github-automation:PA-6627
+FROM ${REPO_LOCATION}${BASE_IMAGE}
+
+ARG GITHUB_TOKEN
+ARG CHANGE_BRANCH
+ARG BRANCH_NAME
+
+RUN ls -lrt
+
+WORKDIR /devops-github-automation
+
+RUN if [ -z "$CHANGE_BRANCH" ]; then \
+    git clone -b ${BRANCH_NAME} https://acquia-jenkins:${GITHUB_TOKEN}@github.com/acquia/mock-github-administration.git; else \
+    git clone -b ${CHANGE_BRANCH} https://acquia-jenkins:${GITHUB_TOKEN}@github.com/acquia/mock-github-administration.git; fi
+    
+RUN ls -lrt mock-github-administration/*
+
+CMD [ "bin/bash" ]O
