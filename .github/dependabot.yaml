@@ -1,0 +1,23 @@
+version: 2
+updates:
+  - package-ecosystem: "docker"
+    directory: "/.acquia"
+    schedule:
+      interval: "weekly"
+    pull-request-branch-name:
+      separator: "-"
+    registries:
+      - jfrog
+  - package-ecosystem: "gomod"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    pull-request-branch-name:
+      separator: "-"
+
+registries:
+  jfrog:
+    type: docker-registry
+    url: https://jfrog.ais.acquia.io
+    username: github_dependabot_token
+    password: ${{secrets.JFROG_GITHUB_DEPENDABOT_TOKEN}}
